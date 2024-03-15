@@ -1,6 +1,7 @@
 from typing import List
 
 from IceCreamParlorF import IceCreamParlor
+from IceParlorExceptionF import ValueNotALLOWEDError
 from ParlorCustomerF import ParlorCustomer
 
 
@@ -10,15 +11,15 @@ class ParlorSimulation:
         try:
             if not isinstance(clients, list) or not all(
                     isinstance(client, ParlorCustomer) for client in clients):
-                raise ValueError("clients must be a list of ParlorCustomer instances")
+                raise ValueNotALLOWEDError("clients must be a list of ParlorCustomer instances")
             if not isinstance(parlors, list) or not all(
                     isinstance(parlor, IceCreamParlor) for parlor in parlors):
-                raise ValueError("parlors must be a list of IceCreamParlor instances")
+                raise ValueNotALLOWEDError("parlors must be a list of IceCreamParlor instances")
             self.clients = clients
             if len(parlors) == 0:
-                raise ValueError("There are no parlors")
+                raise ValueNotALLOWEDError("There are no parlors")
             self.parlors = parlors
-        except ValueError as e:
+        except ValueNotALLOWEDError as e:
             print(f"{e}, try again")
 
     def run(self) -> dict[str, float]:

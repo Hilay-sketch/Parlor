@@ -2,7 +2,8 @@ import json
 from typing import List
 
 from IceCreamParlorF import IceCreamParlor
-from IceParlorExceptionF import IceParlorException, ConfigurationFileNotFoundError, DuplicateParlorLocationError
+from IceParlorExceptionF import IceParlorException, ConfigurationFileNotFoundError, DuplicateParlorLocationError, \
+    ValueNotALLOWEDError
 from ParlorCustomerF import ParlorCustomer
 from ParlorSimulationF import ParlorSimulation
 from PositionF import Position
@@ -26,7 +27,7 @@ def load_ice_cream_list(data_of_parlors: dict) -> List[IceCreamParlor]:
                 try:
                     taste_cost[key] = float(value)
                 except ValueError:
-                    print(f"Error: Unable to convert {value} to float.")
+                    raise ValueNotALLOWEDError(f"Error: Unable to convert {value} to float.")
         else:
             print("Error: taste_cost is not a dictionary.")
             continue
@@ -60,7 +61,7 @@ def choosing_action(action: str, simulation: ParlorSimulation):
     elif action == "unhappy_customers":
         return create_list_to_json(simulation.unhappy_customers())
     else:
-        raise ValueError("Invalid action")
+        raise ValueNotALLOWEDError("Invalid action")
 
 
 def create_result_json_file() -> None:

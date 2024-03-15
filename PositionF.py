@@ -1,10 +1,13 @@
+from IceParlorExceptionF import ValueNotALLOWEDError
+
+
 class Position:
     def __init__(self, x: int, y: int):
         try:
             self.x = int(x)
             self.y = int(y)
         except ValueError:
-            raise ValueError("Position coordinates must be integers")
+            raise ValueNotALLOWEDError("Position coordinates must be integers")
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
