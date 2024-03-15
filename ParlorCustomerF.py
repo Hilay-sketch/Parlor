@@ -85,14 +85,12 @@ class ParlorCustomer:
             if len(closest_parlors) == 1:
                 return closest_parlors[0]
 
-            # Filter parlors that have the customer's preferred purchase option within their budget
             parlors_with_fav_option = [parlor for parlor in closest_parlors if
                                        self.fav_option in parlor.prices and parlor.prices[
                                            self.fav_option] <= self.max_price]
             if len(parlors_with_fav_option) == 1:
                 return parlors_with_fav_option[0]
 
-            # Choose randomly among the remaining options
             if parlors_with_fav_option:
                 return random.choice(parlors_with_fav_option)
             else:

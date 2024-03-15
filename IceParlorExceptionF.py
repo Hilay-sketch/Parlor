@@ -14,3 +14,7 @@ class ValueNotALLOWEDError(IceParlorException):
 
 class DuplicateParlorLocationError(IceParlorException):
     pass
+
+
+class SocketParlorError(IceParlorException):
+    pass

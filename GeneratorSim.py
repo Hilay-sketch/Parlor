@@ -46,7 +46,6 @@ def main():
         }
     }
 
-    # Create IceCreamParlor objects
     ice_cream_parlors = []
     for parlor_name, parlor_details in parlors_data.items():
         position = Position(parlor_details["Location"]["x"], parlor_details["Location"]["y"])
@@ -54,7 +53,6 @@ def main():
         pricing = parlor_details["Pricing"]
         ice_cream_parlors.append(IceCreamParlor(parlor_name, position, flavors, pricing))
 
-    # Create ParlorCustomer objects
     parlor_customers = []
     for customer_name, customer_details in customers_data["clients"].items():
         position = Position(customer_details["Location"]["x"], customer_details["Location"]["y"])
@@ -66,7 +64,6 @@ def main():
         fav_option = customer_details.get("Preferred Option", "")
         parlor_customers.append(ParlorCustomer(favorite_tastes, hate_tastes, position, budget, fav_option))
 
-    # Create ParlorSimulation object
     simulation = ParlorSimulation(parlor_customers, ice_cream_parlors)
 
     for costumer, parlor in simulation_superset(simulation):

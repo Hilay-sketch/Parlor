@@ -85,6 +85,12 @@
 			],
 			"Budget": 40,
 			"Preferred Option": "scoop2"
+		},
+		"Pif": {
+			"Favorites": [
+			],
+			"Budget": 4,
+			"Preferred Option": "scoop2"
 		}
 	},
 	"clients": {
@@ -108,9 +114,16 @@
 				"x": 0,
 				"y": 0
 			}
+		},
+		"Sif": {
+			"type": "Pif",
+			"Location": {
+				"x": 20,
+				"y": 10
+			}
 		}
 	},
 	"simulation": {
-		"action": "run"
+		"action": "unhappy_customers"
 	}
 }
