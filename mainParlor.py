@@ -2,8 +2,7 @@ import json
 from typing import List
 
 from IceCreamParlorF import IceCreamParlor
-from IceParlorExceptionF import IceParlorException, ConfigurationFileNotFoundError, DuplicateParlorLocationError, \
-    ValueNotALLOWEDError
+from IceParlorExceptionF import IceParlorException, ConfigurationFileNotFoundError, ValueNotALLOWEDError
 from ParlorCustomerF import ParlorCustomer
 from ParlorSimulationF import ParlorSimulation
 from PositionF import Position

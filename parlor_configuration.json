@@ -124,6 +124,6 @@
 		}
 	},
 	"simulation": {
-		"action": "unhappy_customers"
+		"action": "run"
 	}
 }

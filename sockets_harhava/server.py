@@ -1,10 +1,9 @@
-import socket
 import json
-import os
+import socket
+
+import mainParlor as MainSim
 import protocol as pr
 from IceParlorExceptionF import SocketParlorError
-import ParlorSimulationF as Sim
-import mainParlor as MainSim
 
 configurations = {}
 

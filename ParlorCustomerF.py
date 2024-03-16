@@ -41,13 +41,12 @@ class ParlorCustomer:
             if not isinstance(options, list) or not all(
                     isinstance(option, IceCreamParlor) for option in options):
                 raise ValueNotALLOWEDError("options must be a list of IceCreamParlor instances")
-            # Filter parlors that have options within the customer's budget
+
             affordable_parlors = [parlor for parlor in options if
                                   any(price <= self.max_price for price in parlor.prices.values())]
             if len(affordable_parlors) == 1:
                 return affordable_parlors[0]
 
-            # Filter parlors that have more flavors the customer likes
             parlors_with_fav_flavors = sorted(affordable_parlors,
                                               key=lambda parlor: len(set(self.fav_flavors) & set(parlor.flavors)),
                                               reverse=True)
@@ -60,7 +59,6 @@ class ParlorCustomer:
             if len(parlors_with_max_fav_flavors) == 1:
                 return parlors_with_max_fav_flavors[0]
 
-            # Filter parlors that have a larger variety of flavors, excluding the ones the customer hates
             parlors_with_variety = sorted(parlors_with_max_fav_flavors,
                                           key=lambda parlor: len(set(parlor.flavors) - set(self.hated_flavors)),
                                           reverse=True)
@@ -73,7 +71,6 @@ class ParlorCustomer:
             if len(parlors_with_max_variety) == 1:
                 return parlors_with_max_variety[0]
 
-            # Filter parlors that are closer to the customer, rounded to hundreds
             parlors_by_distance = sorted(parlors_with_max_variety,
                                          key=lambda parlor: round(parlor.pos.distance(self.pos), -2))
             if parlors_by_distance:
@@ -107,11 +104,9 @@ class ParlorCustomer:
             if not isinstance(parlor, IceCreamParlor):
                 raise IceParlorException("parlor must be an instance of IceCreamParlor")
 
-            # If the customer's favorite purchase option is available and within their budget
             if self.fav_option in parlor.prices and parlor.prices[self.fav_option] <= self.max_price:
                 return parlor.prices[self.fav_option]
 
-            # Otherwise, buy the most expensive option that is within their budget
             affordable_options = [price for price in parlor.prices.values() if price <= self.max_price]
             if affordable_options:
                 return max(affordable_options)
