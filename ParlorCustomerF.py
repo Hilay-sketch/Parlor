@@ -1,3 +1,4 @@
+import copy
 import random
 from typing import Any
 
@@ -38,6 +39,8 @@ class ParlorCustomer:
 
     def choose(self, options: list[IceCreamParlor]) -> IceCreamParlor | None | Any:
         try:
+            if not options:
+                raise ValueNotALLOWEDError("There are no options to choose from")
             if not isinstance(options, list) or not all(
                     isinstance(option, IceCreamParlor) for option in options):
                 raise ValueNotALLOWEDError("options must be a list of IceCreamParlor instances")
@@ -47,38 +50,53 @@ class ParlorCustomer:
             if len(affordable_parlors) == 1:
                 return affordable_parlors[0]
 
-            parlors_with_fav_flavors = sorted(affordable_parlors,
-                                              key=lambda parlor: len(set(self.fav_flavors) & set(parlor.flavors)),
-                                              reverse=True)
-            if parlors_with_fav_flavors:
-                max_fav_flavors = len(set(self.fav_flavors) & set(parlors_with_fav_flavors[0].flavors))
-            else:
-                max_fav_flavors = 0
-            parlors_with_max_fav_flavors = [parlor for parlor in parlors_with_fav_flavors if
-                                            len(set(self.fav_flavors) & set(parlor.flavors)) == max_fav_flavors]
-            if len(parlors_with_max_fav_flavors) == 1:
-                return parlors_with_max_fav_flavors[0]
+            max_fav_flavors = 0
+            for parlor in affordable_parlors:
+                current_fav_flavors = 0
+                for flavor_in_parlor in parlor.flavors:
+                    #TODO: עומר עשה שטויות אתה לא צריך לבדוק שיש פה משהו בתוך משהו אלא ספציפי
+                    for flavor in self.fav_flavors:
+                        if flavor in flavor_in_parlor:
+                            current_fav_flavors += 1
+                if current_fav_flavors > max_fav_flavors:
+                    max_fav_flavors = current_fav_flavors
 
-            parlors_with_variety = sorted(parlors_with_max_fav_flavors,
-                                          key=lambda parlor: len(set(parlor.flavors) - set(self.hated_flavors)),
-                                          reverse=True)
-            if parlors_with_variety:
-                max_variety = len(set(parlors_with_variety[0].flavors) - set(self.hated_flavors))
-            else:
-                max_variety = 0
-            parlors_with_max_variety = [parlor for parlor in parlors_with_variety if
-                                        len(set(parlor.flavors) - set(self.hated_flavors)) == max_variety]
-            if len(parlors_with_max_variety) == 1:
-                return parlors_with_max_variety[0]
+            parlors_with_fav_flavors = []
+            for parlor in affordable_parlors:
+                current_fav_flavors = 0
+                for flavor_in_parlor in parlor.flavors:
+                    #TODO: עומר עשה שטויות אתה לא צריך לבדוק שיש פה משהו בתוך משהו אלא ספציפי
+                    for flavor in self.fav_flavors:
+                        if flavor in flavor_in_parlor:
+                            current_fav_flavors += 1
+                if current_fav_flavors == max_fav_flavors:
+                    parlors_with_fav_flavors.append(parlor)
 
-            parlors_by_distance = sorted(parlors_with_max_variety,
-                                         key=lambda parlor: round(parlor.pos.distance(self.pos), -2))
-            if parlors_by_distance:
-                min_distance = round(parlors_by_distance[0].pos.distance(self.pos), -2)
-            else:
-                min_distance = 0
-            closest_parlors = [parlor for parlor in parlors_by_distance if
-                               round(parlor.pos.distance(self.pos), -2) == min_distance]
+            if len(parlors_with_fav_flavors) == 1:
+                return parlors_with_fav_flavors[0]
+
+            parlors_with_fav_flavors2 = copy.deepcopy(parlors_with_fav_flavors)
+
+            for parlor in parlors_with_fav_flavors2:
+                for flavor in parlor.flavors:
+                    #TODO: עומר עשה שטויות אתה לא צריך לבדוק שיש פה משהו בתוך משהו אלא ספציפי
+                    for hated_flavor in self.hated_flavors:
+                        if hated_flavor in flavor:
+                            parlors_with_fav_flavors2.remove(parlor)
+
+            parlors_with_most_flavors = []
+            max_flavors = max(len(parlor.flavors) for parlor in parlors_with_fav_flavors2)
+            for parlor in parlors_with_fav_flavors2:
+                if len(parlor.flavors) == max_flavors:
+                    parlors_with_most_flavors.append(parlor)
+
+            if len(parlors_with_most_flavors) == 1:
+                return parlors_with_most_flavors[0]
+
+            min_distance = min(round(parlor.pos.distance(self.pos), -2) for parlor in parlors_with_most_flavors)
+            closest_parlors = [parlor for parlor in parlors_with_most_flavors
+                               if round(parlor.pos.distance(self.pos), -2) == min_distance]
+
             if len(closest_parlors) == 1:
                 return closest_parlors[0]
 
@@ -88,10 +106,7 @@ class ParlorCustomer:
             if len(parlors_with_fav_option) == 1:
                 return parlors_with_fav_option[0]
 
-            if parlors_with_fav_option:
-                return random.choice(parlors_with_fav_option)
-            else:
-                return None
+            return random.choice(parlors_with_fav_option)
         except ValueNotALLOWEDError as e:
             print(f"{e}, try again")
             return None
