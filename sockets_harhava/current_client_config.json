@@ -1,1 +1,116 @@
-["IceCreamParlor: Othello Gelato, Location: (1, 1)"]
+{
+	"parlors": {
+		"Golda": {
+			"Location": {
+				"x": 0,
+				"y": 0
+			},
+			"Flavors": [
+				"Maya's Buiscuit Cake",
+				"Salted Bagel",
+				"White Chocolate and Cookies",
+				"Nougat Wafer",
+				"White Chocolate, Coconut & Almonds",
+				"Pistachio",
+				"Bubble Gum",
+				"Belgian Chocolate",
+				"Vanilla Madagascar",
+				"White Chocolate & Pistachio Cream",
+				"Salted Cashew",
+				"Black Forrest",
+				"Mint Chocolate",
+				"Mascrapone Ricotta & Strawberry",
+				"Macademia Nuts Cream"
+			],
+			"Pricing": {
+				"scoop1": 17,
+				"scoop2": 22,
+				"scoop3": 24,
+				"kilo0.5": 47,
+				"kilo1.0": 94
+			}
+		},
+		"Othello Gelato": {
+			"Location": {
+				"x": 1,
+				"y": 1
+			},
+			"Flavors": [
+				"Stratichella",
+				"Jandoya",
+				"Grenada",
+				"Vietnam",
+				"White Chocolate & Pistachio Cream",
+				"Blonde Pretzel",
+				"White Strawberry",
+				"Pistachio & Lemon Cream",
+				"Vannilla Planifollia",
+				"Pistachio",
+				"Nociolla",
+				"Salted Peanuts & Chocolate",
+				"Salted Caramel",
+				"Milk Cream",
+				"Mascrapone, Berries, & Crumble",
+				"Cookies & Cream",
+				"Banana Pecan"
+			],
+			"Pricing": {
+				"scoop1": 14,
+				"scoop2": 19,
+				"scoop3": 24,
+				"scoop4": 28,
+				"kilo0.5": 70,
+				"kilo1.0": 125
+			}
+		}
+	},
+	"client profiles": {
+		"Youngster": {
+			"Favorites": [
+				"Chocolate",
+				"Vanilla"
+			],
+			"Dislikes": [
+				"Pistachio",
+				"Macademia Nuts Cream",
+				"Grenada"
+			],
+			"Budget": 20,
+			"Preferred Option": "scoop4"
+		},
+		"Connoisseur": {
+			"Favorites": [
+				"Pistachio",
+				"Coffee"
+			],
+			"Budget": 40,
+			"Preferred Option": "scoop2"
+		}
+	},
+	"clients": {
+		"Youngster Joey": {
+			"type": "Youngster",
+			"Location": {
+				"x": 10,
+				"y": 11
+			}
+		},
+		"Youngster Anna": {
+			"type": "Youngster",
+			"Location": {
+				"x": 5,
+				"y": -1
+			}
+		},
+		"Manny": {
+			"type": "Connoisseur",
+			"Location": {
+				"x": 0,
+				"y": 0
+			}
+		}
+	},
+	"simulation": {
+		"action": "run"
+	}
+}
