@@ -54,10 +54,8 @@ class ParlorCustomer:
             for parlor in affordable_parlors:
                 current_fav_flavors = 0
                 for flavor_in_parlor in parlor.flavors:
-                    #TODO: עומר עשה שטויות אתה לא צריך לבדוק שיש פה משהו בתוך משהו אלא ספציפי
-                    for flavor in self.fav_flavors:
-                        if flavor in flavor_in_parlor:
-                            current_fav_flavors += 1
+                    if flavor_in_parlor in self.fav_flavors:
+                        current_fav_flavors += 1
                 if current_fav_flavors > max_fav_flavors:
                     max_fav_flavors = current_fav_flavors
 
@@ -65,10 +63,8 @@ class ParlorCustomer:
             for parlor in affordable_parlors:
                 current_fav_flavors = 0
                 for flavor_in_parlor in parlor.flavors:
-                    #TODO: עומר עשה שטויות אתה לא צריך לבדוק שיש פה משהו בתוך משהו אלא ספציפי
-                    for flavor in self.fav_flavors:
-                        if flavor in flavor_in_parlor:
-                            current_fav_flavors += 1
+                    if flavor_in_parlor in self.fav_flavors:
+                        current_fav_flavors += 1
                 if current_fav_flavors == max_fav_flavors:
                     parlors_with_fav_flavors.append(parlor)
 
@@ -79,10 +75,8 @@ class ParlorCustomer:
 
             for parlor in parlors_with_fav_flavors2:
                 for flavor in parlor.flavors:
-                    #TODO: עומר עשה שטויות אתה לא צריך לבדוק שיש פה משהו בתוך משהו אלא ספציפי
-                    for hated_flavor in self.hated_flavors:
-                        if hated_flavor in flavor:
-                            parlors_with_fav_flavors2.remove(parlor)
+                    if flavor in self.hated_flavors:
+                        parlor.flavors.remove(flavor)
 
             parlors_with_most_flavors = []
             max_flavors = max(len(parlor.flavors) for parlor in parlors_with_fav_flavors2)
