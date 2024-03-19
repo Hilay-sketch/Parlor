@@ -120,7 +120,6 @@ class ParlorCustomer:
             if affordable_options:
                 return max(affordable_options)
 
-            # If there is no option within their budget at the ice cream parlor
             return 0.0
 
         except ValueNotALLOWEDError as e:

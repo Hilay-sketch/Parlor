@@ -18,6 +18,10 @@ class ParlorSimulation:
             self.clients = clients
             if len(parlors) == 0:
                 raise ValueNotALLOWEDError("There are no parlors")
+            for parlor1 in parlors:
+                for parlor2 in parlors:
+                    if parlor1 != parlor2 and parlor1.pos == parlor2.pos:
+                        raise ValueNotALLOWEDError("There are two parlors with the same postion")
             self.parlors = parlors
         except ValueNotALLOWEDError as e:
             print(f"{e}, try again")

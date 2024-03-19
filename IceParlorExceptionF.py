@@ -18,3 +18,7 @@ class DuplicateParlorLocationError(IceParlorException):
 
 class SocketParlorError(IceParlorException):
     pass
+
+
+class OutOfRangeParlorError(IceParlorException):
+    pass
